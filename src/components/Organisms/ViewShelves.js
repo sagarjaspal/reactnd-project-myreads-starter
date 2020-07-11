@@ -1,30 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import * as BooksAPI from "../../BooksAPI";
 import BookShelf from "../Molecules/BookShelf";
 
 class ViewShelves extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      books: [],
-    };
-  }
-
-  getAllBooks = () =>
-    BooksAPI.getAll().then((books) => this.setState({ books }));
-
-  componentDidMount() {
-    this.getAllBooks();
-  }
-
-  updateBook = (book, shelf) =>
-    BooksAPI.update(book, shelf)
-      .then(this.getAllBooks())
-      .then(this.forceUpdate());
-
   render() {
-    const { books } = this.state;
+    const { books, updateBook } = this.props;
     const shelves = [
       { id: "currentlyReading", name: "Currently Reading" },
       { id: "wantToRead", name: "Want to Read" },
@@ -42,7 +22,7 @@ class ViewShelves extends Component {
               key={shelf.id}
               shelf={shelf}
               books={books}
-              updateBook={this.updateBook}
+              updateBook={updateBook}
             />
           ))}
         </div>
