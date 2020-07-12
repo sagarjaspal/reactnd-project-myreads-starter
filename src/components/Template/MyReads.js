@@ -19,7 +19,6 @@ class MyReads extends PureComponent {
   }
 
   updateBook = (book, shelf) => {
-    console.log("now updating");
     BooksAPI.update(book, shelf).then(() => this.getAllBooks());
   };
 
@@ -32,7 +31,7 @@ class MyReads extends PureComponent {
             <ViewShelves books={books} updateBook={this.updateBook} />
           </Route>
           <Route exact path="/search">
-            <SearchBook />
+            <SearchBook books={books} updateBook={this.updateBook} />
           </Route>
         </Switch>
       </div>
